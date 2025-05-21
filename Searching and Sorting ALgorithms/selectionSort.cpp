@@ -15,6 +15,8 @@ WORST CASE: O(N^2)
 Average CASE: O(N^2)
 Best CASE: O(N ^2) 
 
+Selection Sort was designed to optimize the number of swaps compared to Bubble Sort, which swaps too frequently.
+
 */
 
 
