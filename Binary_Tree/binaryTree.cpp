@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 class Node{
@@ -78,17 +79,72 @@ public:
     void buildTree() {
         root = builtTreeRecursive();
     }
+
+    void buildTreeLevelOrder(){
+
+        int data;
+        cout<<"Enter the data for the root node: "<<endl;
+        cin>>data;
+        if(data==-1)return;
+
+        root= new Node(data);
+
+        queue<Node*>q;
+
+        q.push(root);
+
+        while(!q.empty()){
+            Node * frontNode = q.front();
+            q.pop();
+
+            cout<<"Enter the data for the left of: "<<frontNode->data<<endl;
+            int ldata;
+            cin>>ldata;
+            if(ldata==-1){
+                frontNode->left=nullptr;
+            }
+            else{
+                frontNode->left= new Node(ldata);
+            }
+
+            cout<<"Enter the data for the right of: "<<frontNode->data<<endl;
+            int rdata;
+            cin>>rdata;
+            if(rdata==-1){
+                frontNode->right=nullptr;
+            }
+            else{
+                frontNode->right= new Node(rdata);
+            }
+        }
+    }
+
+    void printLevelOrder() {
+        cout << "Level Order: ";
+        if (!root) return;
+        queue<Node*> q;
+        q.push(root);
+        while (!q.empty()) {
+            Node* temp = q.front();
+            q.pop();
+            cout << temp->data << " ";
+            if (temp->left) q.push(temp->left);
+            if (temp->right) q.push(temp->right);
+        }
+        cout << endl;
+    }
+
 };
-
-
 
 int main(){
 
     BinaryTree B1;
 
-    B1.buildTree();
+    B1.buildTreeLevelOrder();
 
     B1.printInorder();
+    B1.printPreorder();
+    B1.printPostorder();
 
     return 0;
 }
