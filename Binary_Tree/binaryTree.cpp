@@ -102,9 +102,11 @@ public:
             cin>>ldata;
             if(ldata==-1){
                 frontNode->left=nullptr;
+                
             }
             else{
                 frontNode->left= new Node(ldata);
+                q.push(frontNode->left);
             }
 
             cout<<"Enter the data for the right of: "<<frontNode->data<<endl;
@@ -115,6 +117,7 @@ public:
             }
             else{
                 frontNode->right= new Node(rdata);
+                q.push(frontNode->right);
             }
         }
     }
