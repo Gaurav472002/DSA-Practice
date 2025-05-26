@@ -47,43 +47,43 @@ class BST{
         else if(key>root->data){
             root->right= deleteNode(root->right,key);
         }
-        else{
+        else{ // Key is found, this is the node to be deleted
 
-            // Leaf node deletion
-
+            // Case 1: Leaf node deletion
             if(root->left==nullptr && root->right==nullptr){
                 delete root;
                 return nullptr;
             }
-            // 1 child case either left or right
+            // Case 2: Node with only right child
             else if(root->left==nullptr && root->right!=nullptr){
-                delete root;
-                return root->right;
+                Node *temp = root->right; // Store the right child
+                delete root;              // Delete the current node
+                return temp;              // Return the right child to be the new child of the parent
             }
-
+            // Case 2: Node with only left child
             else if(root->left!=nullptr && root->right==nullptr){
-                delete root;
-                return root->left;
+                Node *temp = root->left;  // Store the left child
+                delete root;              // Delete the current node
+                return temp;              // Return the left child
             }
-            // two child case return inorder predecessor or successor
+            // Case 3: Node with two children
             else{
-
+                // Find the inorder predecessor (largest node in the left subtree)
                 Node * temp=root->left;
-
                 while(temp->right){
                     temp=temp->right;
                 }
                 
-                // swap root with the predecessor node
-
+                // Copy the inorder predecessor's data to this node
                 root->data=temp->data;
 
-                // now delete the predecessor node
-
+                // Delete the inorder predecessor from the left subtree
                 root->left = deleteNode(root->left,temp->data);
-                return root;
+                // No need to 'return root' here explicitly if it's the last statement,
+                // but it's fine. The final 'return root' outside this else will handle it.
             }
         }
+        return root; // Return the (possibly modified) root of the current subtree
     }
 
     // Function to get the inorder of the tree
